@@ -2,18 +2,20 @@
 Golang CRUD Rest API using MySql database and gorilla MUX.
 
 ## Local setup
-Install mysql and go 1.16v and execute the following query in mysql :-
+Install docker into your system then run these steps into current directory:- 
+  * `docker build -t crud-rest-api-1 .`
+  * `docker run -d -p 52000:3306 --name crud-rest-api-1 -e MYSQL_ROOT_PASSWORD=supersecret crud-rest-api-1`
 
-`CREATE TABLE `projects` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `country_code` varchar(25) DEFAULT NULL,
-  `manager_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);`
+  Then check if your database is created or not
+  * `docker exec -it crud-rest-api-1 bash`
+  * `mysql -u root -p`
+  Then type password and verify if it is created or not.
+
 
 ## How to execute
 After creating table we need to pass environment variable values into .env file by creating a new file .env in current directory and copy paste the variables from env-dist file.
+
+NOTE: mysql image is running on PORT=52000, user=root, databaseName=company
 
 At last run these go command in order to build file and run binary.
 

@@ -1,0 +1,1 @@
+INSERT INTO projects (id, name, country_code, manager_name) VALUES(1, 'Pepperstone', 'AUS', 'Srinivasa');
