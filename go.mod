@@ -1,4 +1,4 @@
-module github.com/ashu171996/Crud-rest-api
+module github.com/ashu171996/crud-rest-api
 
 go 1.16
 

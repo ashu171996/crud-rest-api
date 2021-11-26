@@ -6,10 +6,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/ashu171996/Crud-rest-api/pkg/model"
+	"github.com/ashu171996/crud-rest-api/pkg/model"
 	"github.com/gorilla/mux"
 )
 
+// GetAProject: this handle func used to get a project
 func (h *BaseHandler) GetAProject(w http.ResponseWriter, r *http.Request) {
 	var project model.Project
 	params := mux.Vars(r)
@@ -22,16 +23,20 @@ func (h *BaseHandler) GetAProject(w http.ResponseWriter, r *http.Request) {
 	switch err := row.Scan(&project.ID, &project.Name, &project.CountryCode, &project.ManagerName); err {
 	case sql.ErrNoRows:
 		w.WriteHeader(200)
-		displayMessage := "No rows were returned for requested id :" + params["id"]
-		_, err := w.Write([]byte(displayMessage))
+		displayMessage := model.Payload{
+			Response: "No rows were returned for requested id " + params["id"],
+		}
+		err = json.NewEncoder(w).Encode(displayMessage)
 		if err != nil {
 			panic(err.Error())
 		}
+		return
 	case nil:
 		err = json.NewEncoder(w).Encode(project)
 		if err != nil {
 			panic(err.Error())
 		}
+		return
 	default:
 		panic(err.Error())
 	}
